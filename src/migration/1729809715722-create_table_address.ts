@@ -29,7 +29,7 @@ export class CreateTableAddress1729724048643 implements MigrationInterface {
             ALTER SEQUENCE public.address_id_seq OWNED BY public.address.id;
 
             ALTER TABLE ONLY public.address ALTER COLUMN id SET DEFAULT nextval('public.address_id_seq'::regclass);
-        `)
+        `);
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {

@@ -25,7 +25,7 @@ export class CreateTableCity1729724032104 implements MigrationInterface {
             ALTER SEQUENCE public.city_id_seq OWNED BY public.city.id;
 
             ALTER TABLE ONLY public.city ALTER COLUMN id SET DEFAULT nextval('public.city_id_seq'::regclass);
-        `)
+        `);
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
