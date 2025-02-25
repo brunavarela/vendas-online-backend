@@ -13,7 +13,7 @@ export class StateEntity {
   createdAt: Date;
   
   @UpdateDateColumn({ name: 'updated_at' })
-  updateddAt: Date;
+  updatedAt: Date;
 
   @OneToMany(() => CityEntity, (city) => city.state)
   cities?: CityEntity[]
