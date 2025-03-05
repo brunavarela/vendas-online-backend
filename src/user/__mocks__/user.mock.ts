@@ -1,5 +1,5 @@
-import { UserEntity } from "../entities/user.entity";
-import { UserType } from "../enum/user-type.enum";
+import { UserEntity } from '../entities/user.entity';
+import { UserType } from '../enum/user-type.enum';
 
 export const userEntityMock: UserEntity = {
   cpf: '1234344343',
