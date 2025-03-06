@@ -17,7 +17,8 @@ export class AuthService {
   ) {}
 
   async login(loginDto: LoginDto): Promise<ReturnLogin> {
-    const user: UserEntity | undefined = await this.userService.findUserByEmail(loginDto.email)
+    const user: UserEntity | undefined = await this.userService
+      .findUserByEmail(loginDto.email)
       .catch(() => undefined);
 
     const isMatch = await compare(loginDto.password, user?.password || '');
