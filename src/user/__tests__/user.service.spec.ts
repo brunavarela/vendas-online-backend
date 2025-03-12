@@ -79,7 +79,6 @@ describe('UserService', () => {
     ).rejects.toThrow()
   });
 
-
   // getUserByIdUsingRelations test
   it('should return user in getUserByIdUsingRelations', async () => {
     const user = await service.getUserByIdUsingRelations(userEntityMock.id);
