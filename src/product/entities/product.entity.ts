@@ -28,6 +28,7 @@ export class ProductEntity {
     () => CategoryEntity, 
     (category: CategoryEntity) => category.products,
   )
+  
   @JoinColumn({ name: 'category_id', referencedColumnName: 'id'})
   category?: CategoryEntity;
 }
