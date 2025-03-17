@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CategoryEntity } from './entities/category.entity';
-import { Repository } from 'typeorm';
+import { DeleteResult, Repository } from 'typeorm';
 import { CreateCategory } from './dtos/createCategory.dto';
 
 @Injectable()
@@ -61,5 +61,11 @@ export class CategoryService {
     }
 
     return this.categoryRepository.save(createCategory);
+  }
+
+  async deleteCategory(categoryId: number): Promise<DeleteResult> {
+    await this.findCategoryById(categoryId);
+
+    return this.categoryRepository.delete({ id: categoryId });
   }
 }

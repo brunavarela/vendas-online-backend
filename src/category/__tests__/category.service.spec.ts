@@ -5,6 +5,7 @@ import { CategoryEntity } from '../entities/category.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { categoryEntityMock } from '../__mocks__/category.mock';
 import { createCategoryMock } from '../__mocks__/createCategory.mock';
+import { returnDeleteMock } from '../../__mocks__/returnDelete.mock';
 
 describe('CategoryService', () => {
   let service: CategoryService;
@@ -18,6 +19,7 @@ describe('CategoryService', () => {
           findOne: jest.fn().mockResolvedValue(categoryEntityMock),
           find: jest.fn().mockResolvedValue([categoryEntityMock]),
           save: jest.fn().mockResolvedValue(categoryEntityMock),
+          delete: jest.fn().mockReturnValue(returnDeleteMock)
         }
       }],
     }).compile();
@@ -73,27 +75,38 @@ describe('CategoryService', () => {
     expect(service.createCategory(createCategoryMock)).rejects.toThrow();
   });
 
+  // find category by name test
   it('should return category in find by name', async () => {
     const category = await service.findCategoryByName(categoryEntityMock.name);
 
     expect(category).toEqual(categoryEntityMock);
   });
   
+  // find category by name not exist test
   it('should return error if category find by name empty', async () => {
     jest.spyOn(categoryRepository, 'findOne').mockReturnValue(undefined);
 
     expect(service.findCategoryByName(categoryEntityMock.name)).rejects.toThrow();
   });
 
+  // find category by id test
   it('should return category in find by id', async () => {
     const category = await service.findCategoryById(categoryEntityMock.id);
 
     expect(category).toEqual(categoryEntityMock)
   });
 
+  // find category by id not exist test
   it('should return error in not found categoryId', async () => {
     jest.spyOn(categoryRepository, 'findOne').mockResolvedValue(undefined);
     
     expect(service.findCategoryById(categoryEntityMock.id)).rejects.toThrow();
+  });
+
+  // Delete category test
+  it('should return deleted true in deleted product', async () => {
+    const deleted = await service.deleteCategory(categoryEntityMock.id);
+
+    expect(deleted).toEqual(returnDeleteMock);
   });
 });
