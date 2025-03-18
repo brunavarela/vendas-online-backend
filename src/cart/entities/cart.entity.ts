@@ -20,5 +20,5 @@ export class CartEntity {
 
   // Um carrinho pode ter vários produtos
   @OneToMany(() => CartProductEntity, (cartProduct) => cartProduct.cart)
-  cartProduct?: CartProductEntity;
+  cartProduct?: CartProductEntity[];
 }

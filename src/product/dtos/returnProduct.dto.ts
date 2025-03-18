@@ -1,6 +1,6 @@
 import { ProductEntity } from "../entities/product.entity";
 
-export class ReturnProtuct {
+export class ReturnProduct {
   id: number;
   name: string;
   price: number;
