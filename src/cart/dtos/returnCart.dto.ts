@@ -1,5 +1,4 @@
 import { ReturnCartProductDTO } from "src/cart-product/dtos/returnCartProduct.dto";
-import { CartProductEntity } from "../../cart-product/entities/cartProduct.entity";
 import { CartEntity } from "../entities/cart.entity";
 
 export class ReturnCartDTO {

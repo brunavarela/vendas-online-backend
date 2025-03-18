@@ -1,5 +1,5 @@
-import { ReturnCartDTO } from "src/cart/dtos/returnCart.dto";
-import { ReturnProduct } from "src/product/dtos/returnProduct.dto";
+import { ReturnCartDTO } from "../../cart/dtos/returnCart.dto";
+import { ReturnProduct } from "../../product/dtos/returnProduct.dto";
 import { CartProductEntity } from "../entities/cartProduct.entity";
 
 export class ReturnCartProductDTO {
@@ -13,7 +13,7 @@ export class ReturnCartProductDTO {
   constructor(cartProduct: CartProductEntity) {
     this.id = cartProduct.id;
     this.cartId = cartProduct.cartId;
-    this.productId = cartProduct.amount;
+    this.productId = cartProduct.productId;
     this.amount = cartProduct.amount;
 
     //se cartProduct.product existir vai receber o return, senao, undefined

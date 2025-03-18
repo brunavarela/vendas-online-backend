@@ -4,6 +4,8 @@ import { CartEntity } from './entities/cart.entity';
 import { DeleteResult, Repository } from 'typeorm';
 import { InsertCartDTO } from './dtos/insertCart.dto';
 import { CartProductService } from 'src/cart-product/cart-product.service';
+import { UserId } from 'src/decorators/user-id.decorator';
+import { UpdateCartDTO } from './dtos/updateCart.dto';
 
 const LINE_AFFECTED = 1;
 @Injectable()
@@ -62,7 +64,8 @@ export class CartService {
   }
 
   async insertProductInCart(
-    insertCartDTO: InsertCartDTO, userId: number,
+    insertCartDTO: InsertCartDTO, 
+    userId: number,
   ): Promise<CartEntity> {
     
     // verificando se o carrinho está ativo
@@ -72,6 +75,30 @@ export class CartService {
     });
 
     await this.cartProductService.insertProductInCart(insertCartDTO, cart);
+
+    return cart;
+  }
+
+  async deleteProductCart(
+    productId: number, 
+    userId: number
+  ): Promise<DeleteResult> {
+    
+    const cart = await this.findCartByUserId(userId)
+
+    return this.cartProductService.deleteProductCart(productId, cart.id);
+  }
+
+  async updateProductInCart(
+    updateCartDTO: UpdateCartDTO, 
+    userId: number,
+  ): Promise<CartEntity> {
+    const cart = await this.findCartByUserId(userId)
+    .catch(async() => {
+      return this.createCart(userId)
+    });
+
+    await this.cartProductService.updateProductInCart(updateCartDTO, cart);
 
     return cart;
   }
