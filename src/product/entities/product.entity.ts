@@ -1,6 +1,6 @@
-import { CartProductEntity } from "src/cart-product/entities/cartProduct.entity";
-import { CategoryEntity } from "../../category/entities/category.entity";
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { CartProductEntity } from '../../cart-product/entities/cartProduct.entity';
+import { CategoryEntity } from '../../category/entities/category.entity';
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity({name: 'product'})
 export class ProductEntity {
