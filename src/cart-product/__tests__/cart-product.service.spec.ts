@@ -147,11 +147,6 @@ describe('CartProductService', () => {
     });
   });
 
-
-
-
-
-
   // update product in cart test
   it('should return error in exception updateProductInCart', async () => {
     jest.spyOn(productService, 'findProductById').mockRejectedValue(new NotFoundException());
