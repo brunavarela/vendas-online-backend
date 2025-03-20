@@ -32,7 +32,7 @@ describe('AddressController', () => {
     expect(addressService).toBeDefined();
   });
 
-  it('should address Entity in createAddress', async () => {
+  it('should return address Entity in createAddress', async () => {
     const address = await controller.createAddress(
       createAddressMock, 
       userEntityMock.id
@@ -41,7 +41,7 @@ describe('AddressController', () => {
     expect(address).toEqual(addressEntityMock)
   });
 
-  it('should address Entity in findAddressByUserId', async () => {
+  it('should return address Entity in findAddressByUserId', async () => {
     const addresses = await controller.findAddressByUserId(
       userEntityMock.id
     );
