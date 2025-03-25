@@ -46,10 +46,13 @@ describe('AddressController', () => {
       userEntityMock.id
     );
 
-    expect(addresses).toEqual([{
-      complement: addressEntityMock.complement,
-      numberAddress: addressEntityMock.numberAddress,
-      cep: addressEntityMock.cep,
-    }]);
+    expect(addresses).toEqual([
+      {
+        id: addressEntityMock.id,
+        complement: addressEntityMock.complement,
+        numberAddress: addressEntityMock.numberAddress,
+        cep: addressEntityMock.cep,
+      }
+    ]);
   });
 });
