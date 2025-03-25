@@ -1,6 +1,6 @@
 import { IsInt, IsOptional, IsString } from "class-validator";
 
-export class CreateAddressDto {
+export class CreateAddressDTO {
   @IsString()
   @IsOptional()
   complement: string;

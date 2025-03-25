@@ -1,6 +1,6 @@
 
-import { OrderEntity } from "src/order/entities/order.entity";
-import { PaymentStatusEntity } from "src/payment-status/entities/payment-status.entity";
+import { OrderEntity } from '../../order/entities/order.entity';
+import { PaymentStatusEntity } from '../../payment-status/entities/payment-status.entity';
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, TableInheritance, UpdateDateColumn } from "typeorm";
 
 @Entity({ name: 'payment'})
