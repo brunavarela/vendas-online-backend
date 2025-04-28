@@ -75,6 +75,7 @@ describe('ProductService', () => {
     expect(spy.mock.calls[0][0]).toEqual({
       where: {
         id: In([1]),
+        
       },
       relations: {
         category: true

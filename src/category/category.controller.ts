@@ -15,12 +15,10 @@ export class CategoryController {
     private readonly categoryService: CategoryService
   ){}
 
-  @Roles(UserType.User)
+  @Roles(UserType.User, UserType.Admin)
   @Get()
   async findAllCategories(): Promise<ReturnCategory[]> {
-    return (await this.categoryService.findAllCategories()).map(
-      (category) => new ReturnCategory(category)
-    );
+    return this.categoryService.findAllCategories();
   }
 
   @Roles(UserType.Admin)
