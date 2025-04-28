@@ -2,6 +2,7 @@ import { Body, Controller, Get, Param, Post, UsePipes, ValidationPipe } from '@n
 import { CreateOrderDTO } from './dtos/createOrder.dto';
 import { OrderService } from './order.service';
 import { UserId } from '../decorators/user-id.decorator';
+import { OrderEntity } from './entities/order.entity';
 
 @Controller('order')
 export class OrderController {
@@ -15,7 +16,7 @@ export class OrderController {
   async createOrder(
     @Body() createOrderDTO: CreateOrderDTO,
     @UserId() UserId: number,
-  ) {
+  ): Promise<OrderEntity> {
     return  this.orderService.createOrder(createOrderDTO, UserId)
   }
 
