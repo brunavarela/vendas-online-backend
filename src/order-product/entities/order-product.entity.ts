@@ -17,7 +17,7 @@ export class OrderProductEntity {
   amount: number;
 
   @Column({ name: 'price', nullable: false })
-  price: Date;
+  price: number;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
