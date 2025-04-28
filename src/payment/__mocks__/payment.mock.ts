@@ -1,5 +1,5 @@
-import { PaymentType } from "../../payment-status/enums/payment-type.enum";
-import { PaymentEntity } from "../entities/payment.entity";
+import { PaymentType } from '../../payment-status/enums/payment-type.enum';
+import { PaymentEntity } from '../entities/payment.entity';
 
 export const paymentMock: PaymentEntity = {
   createdAt: new Date(),
