@@ -14,6 +14,7 @@ export class ReturnOrderDto {
   address?: ReturnAddressDTO;
   payment?: ReturnPaymentDTO;
   ordersProduct?: ReturnOrderProductDTO[];
+  amountProducts?: number;
 
   constructor(order: OrderEntity) {
     this.id = order.id;
@@ -23,15 +24,16 @@ export class ReturnOrderDto {
     this.addressId = order.addressId;
     this.paymentId = order.paymentId;
     this.address = order.address 
-        ? new ReturnAddressDTO(order.address) 
-        : undefined;
-      this.payment = order.payment 
-        ? new ReturnPaymentDTO(order.payment) 
-        : undefined;
-      this.ordersProduct = order.ordersProduct 
-        ? order.ordersProduct.map(
-            (orderProduct) => new ReturnOrderProductDTO(orderProduct),
-          )
-        : undefined
+      ? new ReturnAddressDTO(order.address) 
+      : undefined;
+    this.payment = order.payment 
+      ? new ReturnPaymentDTO(order.payment) 
+      : undefined;
+    this.ordersProduct = order.ordersProduct 
+      ? order.ordersProduct.map(
+          (orderProduct) => new ReturnOrderProductDTO(orderProduct),
+        )
+      : undefined;
+    this.amountProducts = order.amountProducts;
   }
 }
