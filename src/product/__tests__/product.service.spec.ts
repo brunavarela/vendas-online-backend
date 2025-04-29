@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ProductService } from '../product.service';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { ProductEntity } from '../entities/product.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { productEntityMock } from '../__mocks__/product.mock';
@@ -8,7 +8,6 @@ import { createProductMock } from '../__mocks__/createProduct.mock';
 import { CategoryService } from '../../category/category.service';
 import { categoryEntityMock } from '../../category/__mocks__/category.mock';
 import { returnDeleteMock } from '../../__mocks__/returnDelete.mock';
-import { updateProductMock } from '../__mocks__/updateProduct.mock';
 
 describe('ProductService', () => {
   let service: ProductService;
@@ -54,6 +53,34 @@ describe('ProductService', () => {
     const products = await service.findAll();
 
     expect(products).toEqual([productEntityMock]);
+  });
+
+  it('should return relations in find all products', async () => {
+    const spy = jest.spyOn(productRepository, 'find');
+    const products = await service.findAll([], true);
+
+    expect(products).toEqual([productEntityMock]);
+    expect(spy.mock.calls[0][0]).toEqual({
+      relations: {
+        category: true
+      }
+    })
+  });
+
+  it('should return relations and array in find all products', async () => {
+    const spy = jest.spyOn(productRepository, 'find');
+    const products = await service.findAll([1], true);
+
+    expect(products).toEqual([productEntityMock]);
+    expect(spy.mock.calls[0][0]).toEqual({
+      where: {
+        id: In([1]),
+        
+      },
+      relations: {
+        category: true
+      }
+    })
   });
 
   // Return error empty products test
@@ -122,4 +149,5 @@ describe('ProductService', () => {
       service.updateProduct(createProductMock, productEntityMock.id),
     ).rejects.toThrow();
   });
+  
 });
