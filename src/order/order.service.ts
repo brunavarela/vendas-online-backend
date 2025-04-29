@@ -120,6 +120,24 @@ export class OrderService {
       throw new NotFoundException('Orders not found')
     };
 
-    return orders;
+    const ordersProducts = 
+      await this.orderProductService.findAmountProductsByOrderId(
+        orders.map((order) => order.id),
+      );
+
+    return orders.map((order) => {
+      const orderProduct = ordersProducts.find(
+        (currentOrder) => currentOrder.order_id === order.id
+      );
+
+      if (orderProduct) {
+        return {
+          ...order,
+          amountProducts: Number(orderProduct.total),
+        };
+      }
+
+      return order;
+    });
   }
 }

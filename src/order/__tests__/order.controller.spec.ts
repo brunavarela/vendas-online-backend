@@ -4,6 +4,7 @@ import { OrderService } from '../order.service';
 import { orderMock } from '../__mocks__/order.mock';
 import { createOrderPixMock } from '../__mocks__/createOrder.mock';
 import { userEntityMock } from '../../user/__mocks__/user.mock';
+import { UserId } from 'src/decorators/user-id.decorator';
 
 describe('OrderController', () => {
   let controller: OrderController;
@@ -54,7 +55,24 @@ describe('OrderController', () => {
 
     expect(orders).toEqual([{
       id: orderMock.id,
-      date: orderMock.date.toString()
+      date: orderMock.date.toString(),
+      userId: orderMock.userId,
+      addressId: orderMock.addressId,
+      paymentId: orderMock.paymentId,
+    }]);
+    expect(spy.mock.calls.length).toEqual(1);
+  });
+
+  it('should return orders in findOrderById', async () => {
+    const spy = jest.spyOn(orderService,'findOrdersByUserId');
+    const orders = await controller.findOrderById(orderMock.id);
+
+    expect(orders).toEqual([{
+      id: orderMock.id,
+      date: orderMock.date.toString(),
+      userId: orderMock.userId,
+      addressId: orderMock.addressId,
+      paymentId: orderMock.paymentId,
     }]);
     expect(spy.mock.calls.length).toEqual(1);
   });
