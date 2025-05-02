@@ -10,7 +10,9 @@ export class AuthController {
 
   @UsePipes(ValidationPipe)
   @Post()
-  async login(@Body() loginDto: LoginDto): Promise<ReturnLogin> {
+  async login(
+    @Body() loginDto: LoginDto
+  ): Promise<ReturnLogin> {
     return  this.authService.login(loginDto);
   }
 }

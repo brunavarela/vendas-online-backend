@@ -11,11 +11,15 @@ import { UserType } from './enum/user-type.enum';
 @Controller('user')
 export class UserController {
 
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService
+  ) {}
 
   @UsePipes(ValidationPipe)
   @Post()
-  async createUser (@Body() createUser: CreateUserDto): Promise<UserEntity> {
+  async createUser (
+    @Body() createUser: CreateUserDto
+  ): Promise<UserEntity> {
     return this.userService.createUser(createUser);
   }
 
