@@ -1,9 +1,9 @@
 import { HttpService } from '@nestjs/axios';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { ReturnCepExternalDto } from './dto/returnCepExternal.dto';
-import { CityService } from 'src/city/city.service';
+import { CityService } from '../city/city.service';
 import { ReturnCepDto } from './dto/returnCep.dto';
-import { CityEntity } from 'src/city/entities/city.entity';
+import { CityEntity } from '../city/entities/city.entity';
 
 @Injectable()
 export class CorreiosService {
