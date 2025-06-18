@@ -9,8 +9,14 @@ export class CorreiosController {
         private readonly correiosService: CorreiosService,
     ) {}    
 
-    @Get('/:cep')
+    // @Get('/price')
+    // async priceDelivery(): Promise<any> {
+    //     return this.correiosService.priceDelivery()
+    // }
+
+    @Get(':cep')
     async findAll(@Param('cep') cep: string): Promise<ReturnCepDto> {
         return this.correiosService.findAddressByCep(cep)
     }
+
 }

@@ -15,13 +15,13 @@ export class CategoryController {
     private readonly categoryService: CategoryService
   ){}
 
-  @Roles(UserType.User, UserType.Admin)
+  @Roles(UserType.User, UserType.Admin, UserType.Root)
   @Get()
   async findAllCategories(): Promise<ReturnCategory[]> {
     return this.categoryService.findAllCategories();
   }
 
-  @Roles(UserType.Admin)
+  @Roles(UserType.Admin, UserType.Root)
   @UsePipes(ValidationPipe)
   @Post()
   async createCategory(
@@ -30,7 +30,7 @@ export class CategoryController {
     return this.categoryService.createCategory(createCategory);
   }
 
-  @Roles(UserType.Admin)
+  @Roles(UserType.Admin, UserType.Root)
   @Delete('/:categoryId')
   async deleteCategory(
     @Param('categoryId') categoryId: number

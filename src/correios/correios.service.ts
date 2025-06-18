@@ -1,14 +1,17 @@
 import { HttpService } from '@nestjs/axios';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { ReturnCepExternalDto } from './dto/returnCepExternal.dto';
 import { CityService } from '../city/city.service';
 import { ReturnCepDto } from './dto/returnCep.dto';
 import { CityEntity } from '../city/entities/city.entity';
+import { Client } from 'nestjs-soap';
 
 @Injectable()
 export class CorreiosService {
     URL_CORREIOS = process.env.URL_CEP_CORREIOS;
-    constructor(private readonly httpService: HttpService,
+    constructor(
+        @Inject('SOAP_CORREIOS') private readonly soapClient: Client,
+        private readonly httpService: HttpService,
         private readonly cityService: CityService
     ) {}
 
@@ -36,4 +39,28 @@ export class CorreiosService {
 
     return new ReturnCepDto(returnCep, city?.id, city?.state?.id);
   };
+
+//   async priceDelivery(): Promise<any> {
+//     return new Promise((resolve, reject) => {
+//         this.soapClient.CalcPrecoPrazo({
+//             nCdServico: '40010',
+//             sCepOrigem: '01001-000',
+//             sCepDestino: '01001-000',
+//             nVlPeso: 1,
+//             nCdFormato: 1,
+//             nVlComprimento: 16,
+//             nVlAltura: 2,
+//             nVlLargura: 11,
+//             nVlDiametro: 0,
+//             sCdMaoPropria: 'N',
+//             nVlValorDeclarado: 0,
+//             sCdAvisoRecebimento: 'N',
+//         }, (err, result) => {
+//             if (err) {
+//                 return reject(err);
+//             }
+//             return resolve(result);
+//         });
+//     });
+//   }
 }

@@ -5,6 +5,7 @@ import { createUserMock } from '../__mocks__/createUser.mock';
 import { userEntityMock } from '../__mocks__/user.mock';
 import { updatePasswordMock } from '../__mocks__/updatePassword.mock';
 import { ReturnUserDto } from '../dtos/returnUser.dto';
+import { UserType } from '../enum/user-type.enum';
 
 describe('UserController', () => {
   let controller: UserController;
@@ -35,10 +36,18 @@ describe('UserController', () => {
     expect(userService).toBeDefined();
   });
 
-  it('should return user in createUser', async () => {
+  it('should return user Entity in createUser', async () => {
     const user = await controller.createUser(createUserMock);
 
     expect(user).toEqual(userEntityMock);
+  });
+
+  it('should return user Entity in createUser', async () => {
+    const spy = jest.spyOn(userService, 'createUser');
+    const user = await controller.createAdmin(createUserMock);
+
+    expect(user).toEqual(userEntityMock);
+    expect(spy.mock.calls[0][1]).toEqual(UserType.Admin);
   });
 
   it('should return all users', async () => {

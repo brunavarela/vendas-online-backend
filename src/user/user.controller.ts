@@ -12,6 +12,12 @@ import { UserType } from './enum/user-type.enum';
 export class UserController {
 
   constructor(private readonly userService: UserService) {}
+  
+  @Roles(UserType.Root)
+  @Post('/admin')
+  async createAdmin(@Body() createUser: CreateUserDto): Promise<UserEntity> {
+    return this.userService.createUser(createUser, UserType.Admin);
+  }
 
   @UsePipes(ValidationPipe)
   @Post()
@@ -19,7 +25,7 @@ export class UserController {
     return this.userService.createUser(createUser);
   }
 
-  @Roles(UserType.Admin)
+  @Roles(UserType.Admin, UserType.Root)
   @Get('/all')
   async getAllUser(): Promise<ReturnUserDto[]> {
     return (await this.userService.getAllUser()).map(
@@ -27,7 +33,7 @@ export class UserController {
     );
   }
 
-  @Roles(UserType.Admin)
+  @Roles(UserType.Admin, UserType.Root)
   @Get('/:userId')
   async getUserById(
     @Param('userId') userId: number
@@ -37,7 +43,7 @@ export class UserController {
     )
   }
 
-  @Roles(UserType.Admin, UserType.User)
+  @Roles(UserType.Admin, UserType.Root, UserType.User)
   @Patch()
   @UsePipes(ValidationPipe)
   async updatePasswordUser(
@@ -47,7 +53,7 @@ export class UserController {
     return this.userService.updatePasswordUser(UpdatePasswordDTO, userId)
   }
 
-  @Roles(UserType.Admin, UserType.User)
+  @Roles(UserType.Admin, UserType.Root, UserType.User)
   @Get()
   async getInfoUser(@UserId() userId: number): Promise<ReturnUserDto> {
     return new ReturnUserDto(

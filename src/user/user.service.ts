@@ -7,6 +7,7 @@ import { Repository } from 'typeorm';
 import { UserType } from './enum/user-type.enum';
 import { UpdatePasswordDTO } from './dtos/updatePassword.dto';
 import { createPasswordHashed, validatePassword } from '../utils/password';
+import { use } from 'passport';
 
 @Injectable()
 export class UserService {
@@ -16,7 +17,7 @@ export class UserService {
     private readonly userRepository: Repository<UserEntity>,
   ) {}
 
-  async createUser(createUserDto: CreateUserDto): Promise<UserEntity> {
+  async createUser(createUserDto: CreateUserDto, userType?: number): Promise<UserEntity> {
     const user = await this.findUserByEmail(createUserDto.email).catch(() => undefined);
 
     if(user) {
@@ -27,7 +28,7 @@ export class UserService {
 
     return this.userRepository.save({
       ...createUserDto,
-      typeUser: UserType.User,
+      typeUser: userType ? userType : UserType.User,
       password: passwordHashed,
     })
   }

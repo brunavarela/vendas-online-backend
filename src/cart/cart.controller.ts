@@ -8,7 +8,7 @@ import { ReturnCartDTO } from './dtos/returnCart.dto';
 import { DeleteResult } from 'typeorm';
 import { UpdateCartDTO } from './dtos/updateCart.dto';
 
-@Roles(UserType.User, UserType.Admin)
+@Roles(UserType.User, UserType.Admin, UserType.Root)
 @Controller('cart')
 export class CartController {
   constructor(
