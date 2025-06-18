@@ -16,10 +16,19 @@ export class ProductController {
     private readonly productService: ProductService
   ){}
 
+  @Roles(UserType.Admin, UserType.Root, UserType.User)
   @Get()
   async findAll(): Promise<ReturnProduct[]> {
     return (await this.productService.findAll([], true)).map(
       (product) => new ReturnProduct(product),
+    );
+  }
+  
+  @Roles(UserType.Admin, UserType.Root, UserType.User)
+  @Get('/:productId')
+  async findProductById(@Param('productId') productId): Promise<ReturnProduct> {
+    return new ReturnProduct (
+      await this.productService.findProductById(productId, true)
     );
   }
 
