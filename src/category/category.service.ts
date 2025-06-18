@@ -50,11 +50,14 @@ export class CategoryService {
     );
   }
 
-  async findCategoryById(categoryId: number): Promise<CategoryEntity> {
+  async findCategoryById(categoryId: number, isRelations?: boolean): Promise<CategoryEntity> {
+    const relations = isRelations ? { products: true } : undefined;
+   
     const category = await this.categoryRepository.findOne({
       where: {
         id: categoryId,
-      }
+      },
+      relations
     });
 
     if (!category) {
@@ -93,7 +96,12 @@ export class CategoryService {
   }
 
   async deleteCategory(categoryId: number): Promise<DeleteResult> {
-    await this.findCategoryById(categoryId);
+    const category = await this.findCategoryById(categoryId, true);
+
+    const products = Array.isArray(category.products) ? category.products : category.products ? [category.products] : [];
+    if (products.length > 0) {
+      throw new BadRequestException('Category with relations');  
+    }
 
     return this.categoryRepository.delete({ id: categoryId });
   }
