@@ -3,6 +3,7 @@ import { CategoryController } from '../category.controller';
 import { CategoryService } from '../category.service';
 import { categoryEntityMock } from '../__mocks__/category.mock';
 import { createCategoryMock } from '../__mocks__/createCategory.mock';
+import { returnDeleteMock } from '../../__mocks__/returnDelete.mock';
 
 describe('CategoryController', () => {
   let controller: CategoryController;
@@ -16,6 +17,7 @@ describe('CategoryController', () => {
           useValue: {
             findAllCategories: jest.fn().mockResolvedValue([categoryEntityMock]),
             createCategory: jest.fn().mockResolvedValue(categoryEntityMock),
+            deleteCategory: jest.fn().mockResolvedValue(returnDeleteMock),
           },
         }
       ],
@@ -41,6 +43,20 @@ describe('CategoryController', () => {
     const category = await controller.createCategory(createCategoryMock);
 
     expect(category).toEqual(categoryEntityMock);
+  });
+
+  it('should return deleteResult in delete category', async () => {
+    const category = await controller.deleteCategory(categoryEntityMock.id);
+
+    expect(category).toEqual(returnDeleteMock);
+  }
+);
+  it('should send category id to delete category', async () => {
+    const spy = jest.spyOn(categoryService, 'deleteCategory');
+    const category = await controller.deleteCategory(categoryEntityMock.id);
+
+    expect(category).toEqual(returnDeleteMock);
+    expect(spy.mock.calls[0][0]).toEqual(categoryEntityMock.id);
   });
 
 });
