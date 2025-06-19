@@ -6,6 +6,7 @@ import { CreateCategory } from './dtos/createCategory.dto';
 import { ProductService } from '../product/product.service';
 import { ReturnCategory } from './dtos/returnCategory.dto';
 import { CountProduct } from '../product/dtos/countProduct.dto';
+import { UpdateCategory } from './dtos/updateCategory';
 
 @Injectable()
 export class CategoryService {
@@ -105,4 +106,16 @@ export class CategoryService {
 
     return this.categoryRepository.delete({ id: categoryId });
   }
+
+  async editCategory(
+    categoryId: number, updateCategory: UpdateCategory,
+  ): Promise<CategoryEntity> {
+    const category = await this.findCategoryById(categoryId);
+
+    return this.categoryRepository.save({
+      ...category, 
+      ...updateCategory,
+    });
+  }
+
 }

@@ -21,7 +21,7 @@ export class OrderProductService {
         orderId,
         price,
         productId
-      })
+      });
   }
 
   async findAmountProductsByOrderId(

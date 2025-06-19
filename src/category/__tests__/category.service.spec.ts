@@ -11,6 +11,7 @@ import { countProductMock } from '../../product/__mocks__/countProduct.mock';
 import { ReturnCategory } from '../dtos/returnCategory.dto';
 import { productEntityMock } from '../../product/__mocks__/product.mock';
 import { BadRequestException } from '@nestjs/common';
+import { updateCategoryMock } from '../__mocks__/updateCategory.mock';
 
 describe('CategoryService', () => {
   let service: CategoryService;
@@ -152,5 +153,29 @@ describe('CategoryService', () => {
     expect(service.deleteCategory(categoryEntityMock.id)).rejects.toThrow(
       BadRequestException,
     );
+  });
+
+  it('should return category in update category', async () => {
+    const spy = jest.spyOn(categoryRepository, 'findOne');
+    const category = await service.editCategory(
+      categoryEntityMock.id, 
+      updateCategoryMock
+    );
+
+    expect(category).toEqual(categoryEntityMock);
+    expect(spy.mock.calls.length > 0).toEqual(true);
+  });
+
+  it('should send new category to save', async () => {
+    const spy = jest.spyOn(categoryRepository, 'save');
+     await service.editCategory(
+      categoryEntityMock.id, 
+      updateCategoryMock
+    );
+
+    expect(spy.mock.calls[0][0]).toEqual({
+      ...categoryEntityMock,
+      ...updateCategoryMock,
+    });
   });
 });
