@@ -20,6 +20,7 @@ describe('CategoryController', () => {
             createCategory: jest.fn().mockResolvedValue(categoryEntityMock),
             deleteCategory: jest.fn().mockResolvedValue(returnDeleteMock),
             editCategory: jest.fn().mockResolvedValue(categoryEntityMock),
+            findCategoryById: jest.fn().mockResolvedValue(categoryEntityMock),
           },
         }
       ],
@@ -79,5 +80,22 @@ describe('CategoryController', () => {
 
     expect(spy.mock.calls[0][0]).toEqual(categoryEntityMock.id);
     expect(spy.mock.calls[0][1]).toEqual(updateCategoryMock);
+  });
+
+  it('should return category in find category by id', async () => {
+    const  category = await controller.findCategoryById(categoryEntityMock.id);
+
+    expect(category).toEqual({
+      id: categoryEntityMock.id,
+      name: categoryEntityMock.name,
+    });
+  });
+
+  it('should send id and true relations to findCategoryById', async () => {
+    const spy = jest.spyOn(categoryService, 'findCategoryById');
+    await controller.findCategoryById(categoryEntityMock.id);
+
+    expect(spy.mock.calls[0][0]).toEqual(categoryEntityMock.id);
+    expect(spy.mock.calls[0][1]).toEqual(true);
   });
 });
