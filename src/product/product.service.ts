@@ -6,6 +6,10 @@ import { CreateProductDTO } from './dtos/createProduct.dto';
 import { CategoryService } from '../category/category.service';
 import { UpdateProductDTO } from './dtos/updateProduct.dto';
 import { CountProduct } from './dtos/countProduct.dto';
+import { Pagination, PaginationMeta } from 'src/dtos/pagination.dto';
+
+const DEFAULT_PAGE_SIZE = 10;
+const FIRST_PAGE = 1;
 
 @Injectable()
 export class ProductService {
@@ -18,7 +22,12 @@ export class ProductService {
     private readonly categoryService: CategoryService,
   ) {}
 
-  async findAllPage(search?: string,): Promise<ProductEntity[]>{
+  async findAllPage(
+      search?: string, 
+      size = DEFAULT_PAGE_SIZE,
+      page = FIRST_PAGE,
+    ): Promise<Pagination<ProductEntity[]>>{
+    const skip = (page - 1) * size;
     let findOptions = {};
 
     if (search) {
@@ -29,13 +38,25 @@ export class ProductService {
       };
     }
 
-    const products = await this.productRepository.find(findOptions);
+    const [products, total] = await this.productRepository.findAndCount(
+      {...findOptions,
+        take: size,
+        skip,
+      });
 
     if (!products || products.length === 0) {
       throw new NotFoundException('not found products');
     };
 
-    return products;
+    return new Pagination(
+      new PaginationMeta(
+        Number(size),
+        total,
+        Number(page),
+        Math.ceil(total/size)
+      ),
+      products
+    );
   }
   
   async findAll(
