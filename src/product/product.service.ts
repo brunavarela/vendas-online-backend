@@ -44,9 +44,6 @@ export class ProductService {
         skip,
       });
 
-    if (!products || products.length === 0) {
-      throw new NotFoundException('not found products');
-    };
 
     return new Pagination(
       new PaginationMeta(

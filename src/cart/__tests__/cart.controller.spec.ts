@@ -37,22 +37,15 @@ describe('CartController', () => {
   });
 
   it('should cart entity in insertProductInCart', async () => {
-    const cart = await controller.createCart(
-      insertCartEntityMock, 
-      userEntityMock.id
-    );
+    const cart = await controller.findCartByUserId(userEntityMock.id);
 
-    expect(cart).toEqual({
-      id: cartEntityMock.id
-    });
+    expect(cart).toEqual(cartEntityMock);
   });
 
   it('should cart entity in findCartByUserId', async () => {
     const cart = await controller.findCartByUserId(userEntityMock.id);
 
-    expect(cart).toEqual({
-      id: cartEntityMock.id
-    });
+    expect(cart).toEqual(cartEntityMock);
   });
 
   it('should return delete result in clearCart', async () => {
