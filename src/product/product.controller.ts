@@ -7,7 +7,7 @@ import { ProductEntity } from './entities/product.entity';
 import { CreateProductDTO } from './dtos/createProduct.dto';
 import { DeleteResult } from 'typeorm';
 import { UpdateProductDTO } from './dtos/updateProduct.dto';
-import { Pagination } from 'src/dtos/pagination.dto';
+import { Pagination } from '../dtos/pagination.dto';
 
 @Roles(UserType.Admin, UserType.Root, UserType.User)
 @Controller('product')

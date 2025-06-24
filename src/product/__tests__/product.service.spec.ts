@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ProductService } from '../product.service';
-import { In, Repository } from 'typeorm';
+import { ILike, In, Repository } from 'typeorm';
 import { ProductEntity } from '../entities/product.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { productEntityMock } from '../__mocks__/product.mock';
@@ -26,10 +26,11 @@ describe('ProductService', () => {
         {
           provide: getRepositoryToken(ProductEntity),
           useValue: {
-            find: jest.fn().mockReturnValue([productEntityMock]),
-            findOne: jest.fn().mockReturnValue(productEntityMock),
-            save: jest.fn().mockReturnValue(productEntityMock),
-            delete: jest.fn().mockReturnValue(returnDeleteMock)
+            find: jest.fn().mockResolvedValue([productEntityMock]),
+            findOne: jest.fn().mockResolvedValue(productEntityMock),
+            save: jest.fn().mockResolvedValue(productEntityMock),
+            delete: jest.fn().mockResolvedValue(returnDeleteMock),
+            findAndCount: jest.fn().mockResolvedValue([[productEntityMock], 1]),
           }
       }],
     }).compile();
@@ -149,5 +150,48 @@ describe('ProductService', () => {
       service.updateProduct(createProductMock, productEntityMock.id),
     ).rejects.toThrow();
   });
-  
+
+  it('should return product pagination', async () => {
+    const spy = jest.spyOn(productRepository, 'findAndCount');
+    const productsPagination = await service.findAllPage();
+
+    expect(productsPagination.data).toEqual([productEntityMock]);
+    expect(productsPagination.meta).toEqual({
+      itemsPerPage: 10,
+      totalItems: 1,
+      currentPage: 1,
+      totalPages: 1
+    });
+
+    expect(spy.mock.calls[0][0]).toEqual({
+      take: 10,
+      skip: 0,
+    })
+  });
+
+  it('should return product pagination send size and page', async () => {
+    const mockSize = 23;
+    const mockPage = 233;
+    const productsPagination = await service.findAllPage(undefined, mockSize, mockPage);
+
+    expect(productsPagination.data).toEqual([productEntityMock]);
+    expect(productsPagination.meta).toEqual({
+      itemsPerPage: mockSize,
+      totalItems: 1,
+      currentPage: mockPage,
+      totalPages: 1
+    });
+  });
+
+  it('should return product pagination search', async () => {
+    const mockSearch = 'mockSearch';
+    const spy = jest.spyOn(productRepository, 'findAndCount');
+    
+    await service.findAllPage(mockSearch);
+
+    expect(spy.mock.calls[0][0].where).toEqual({
+      name: ILike(`%${mockSearch}%`)
+    });
+  });
 });
+

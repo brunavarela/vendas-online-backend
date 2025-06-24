@@ -6,7 +6,7 @@ import { CreateProductDTO } from './dtos/createProduct.dto';
 import { CategoryService } from '../category/category.service';
 import { UpdateProductDTO } from './dtos/updateProduct.dto';
 import { CountProduct } from './dtos/countProduct.dto';
-import { Pagination, PaginationMeta } from 'src/dtos/pagination.dto';
+import { Pagination, PaginationMeta } from '../dtos/pagination.dto';
 
 const DEFAULT_PAGE_SIZE = 10;
 const FIRST_PAGE = 1;

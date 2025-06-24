@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ProductController } from '../product.controller';
-import { productEntityMock } from '../__mocks__/product.mock';
+import { productEntityMock, productPaginationMock } from '../__mocks__/product.mock';
 import { ProductService } from '../product.service';
 import { createProductMock } from '../__mocks__/createProduct.mock';
 import { returnDeleteMock } from '../../__mocks__/returnDelete.mock';
@@ -20,6 +20,7 @@ describe('ProductController', () => {
             createProduct: jest.fn().mockResolvedValue(productEntityMock),
             updateProduct: jest.fn().mockResolvedValue(productEntityMock),
             deleteProduct: jest.fn().mockResolvedValue(returnDeleteMock),
+            findAllPage: jest.fn().mockResolvedValue(productPaginationMock),
           },
         }
       ],
@@ -65,4 +66,23 @@ describe('ProductController', () => {
 
     expect(product).toEqual(productEntityMock);
   });
+
+  it('should return productEntity in findAllPage', async () => {
+    const product = await controller.findAllPage();
+
+    expect(product).toEqual(productPaginationMock)
+  });
+
+  it('should return productEntity in findAllPage', async () => {
+    const mockSearch = 'mockSearch';
+    const mockSize = 232;
+    const mockPage = 4343;
+    const spy = jest.spyOn(productService, 'findAllPage')
+
+    await controller.findAllPage(mockSearch, mockSize, mockPage);
+
+    expect(spy.mock.calls[0][0]).toEqual(mockSearch)
+    expect(spy.mock.calls[0][1]).toEqual(mockSize)
+    expect(spy.mock.calls[0][2]).toEqual(mockPage)
+  })
 });

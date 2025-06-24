@@ -50,7 +50,7 @@ import { CorreiosModule } from './correios/correios.module';
   PaymentModule,
   OrderModule,
   OrderProductModule,
-  CorreiosModule
+  // CorreiosModule
   ],
   controllers: [],
   providers: [{
