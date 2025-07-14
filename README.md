@@ -1,85 +1,125 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+🛒 Vendas Online - Backend
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Backend da aplicação de vendas desenvolvida com NestJS, oferecendo endpoints REST para autenticação, gerenciamento de produtos, categorias, busca e checkout.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+📚 Visão Geral
 
-## Description
+Este repositório contém o back-end do Vendas Online App, implementado com NestJS e banco de dados PostgreSQL. Ele fornece suporte completo à aplicação mobile com rotas seguras, controle de usuários e recursos de catálogo com filtros, paginação e categorias.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+⚙️ Funcionalidades
 
-## Project setup
+🔐 Autenticação JWT (Login e Cadastro)
 
-```bash
-$ npm install
-```
+🛍️ Gerenciamento de Produtos
 
-## Compile and run the project
+📁 Categorias de Produtos
 
-```bash
-# development
-$ npm run start
+🔍 Busca com Filtros e Paginação
 
-# watch mode
-$ npm run start:dev
+🧾 Criação e listagem de Pedidos (Checkout)
 
-# production mode
-$ npm run start:prod
-```
+O front-end do app está disponível aqui: https://github.com/brunavarela/vendas-online-app
 
-## Run tests
+🧪 Tecnologias Utilizadas
+NestJS
 
-```bash
-# unit tests
-$ npm run test
+TypeORM
 
-# e2e tests
-$ npm run test:e2e
+PostgreSQL
 
-# test coverage
-$ npm run test:cov
-```
+Passport + JWT
 
-## Resources
+Axios
 
-Check out a few resources that may come in handy when working with NestJS:
+Class-validator + Class-transformer
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+# Clone o repositório
+git clone https://github.com/seuusuario/vendas-online-backend.git
 
-## Support
+# Acesse a pasta do projeto
+cd vendas-online-backend
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+# Instale as dependências
+npm install
 
-## Stay in touch
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+🔐 Autenticação
 
-## License
+O projeto utiliza autenticação baseada em JWT. Após o login, você receberá um access_token que deve ser enviado no header das requisições protegidas.
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+
+📬 Endpoints
+
+GET
+
+Buscar usuário: /user/all
+
+Buscar dados do usuário logado: /user
+
+Buscar todos os usuários por id: /user/id
+
+Buscar meus endereços: /address
+
+Buscar todas as categorias: /category
+
+Buscar categoria pelo id: /category/id
+
+Buscar todos os produtos: /products
+
+Buscar todos os produtos paginados:/product/page?search=sapatos
+
+Buscar detalhes de um produto: /products/id
+
+Buscar carrinho: /cart
+
+Buscar pedidos do usuário: /order/
+
+Buscar todos os pedidos: /order/all
+
+Buscar detalhes do pedido: /order/id
+
+POST
+
+Criar usuário: /user
+
+Criar admin: /user/admin
+
+Criar endereços: /address
+
+Fazer login: /auth
+
+Criar categorias: /category
+
+Criar produtos: /products
+
+Criar carrinho: /cart
+
+Criar pedido: /order
+
+PATCH
+
+Atualizar senha: /user
+
+Atualizar quantidade de produto no carrinho: /cart
+
+PUT
+
+Editar categoria: /category/id
+
+Editar produto: /product/id
+
+DELETE 
+
+Deletar categoria: /category/id
+
+Deletar produto: /product/id
+
+Limpar carrinho: /cart
+
+Remover produto do carrinho: /cart/product/id
+
+
+📌 Todos os endpoints de produtos, pedidos e categorias requerem token JWT autenticado.
+
+
+Desenvolvido por Bruna Varela
